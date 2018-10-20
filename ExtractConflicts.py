@@ -2,7 +2,7 @@ import csv
 import cmath
 import datetime
 
-def Extract(pathFile, coordinatesPoint, distanceMax, yearsAgo):
+def Extract(pathFile, coordinatesPoint, distanceMax, yearsAgo=50):
         
     with open(pathFile) as csv_file:
 

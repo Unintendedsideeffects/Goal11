@@ -30,6 +30,9 @@ def Extract(pathFile, coordinatesPoint, distanceMax, yearsAgo):
 
     return validRows
 
+def numberConflicts(pathFile, coordinatesPoint, distanceMax, yearsAgo):
+    len(Extract(pathFile, coordinatesPoint, distanceMax, yearsAgo))
+
 # print ("START")
 # events=Extract(pathFile = "ConflictData.csv",coordinatesPoint = [32.1736,36.1940],distanceMax=100,yearsAgo=10)
 # for event in events:

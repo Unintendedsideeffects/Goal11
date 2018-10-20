@@ -30,11 +30,11 @@ def Extract(pathFile, coordinatesPoint, distanceMax, yearsAgo):
 
     return validRows
 
-print ("START")
-events=Extract(pathFile = "ConflictData.csv",coordinatesPoint = [32.1736,36.1940],distanceMax=100,yearsAgo=10)
-for event in events:
-    print("------------")
-    print(event)
-    print("------------")
+# print ("START")
+# events=Extract(pathFile = "ConflictData.csv",coordinatesPoint = [32.1736,36.1940],distanceMax=100,yearsAgo=10)
+# for event in events:
+#     print("------------")
+#     print(event)
+#     print("------------")
 
-print("END")
+# print("END")

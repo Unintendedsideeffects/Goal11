@@ -16,7 +16,14 @@ def Extract(pathFile, coordinatesPoint, distanceMax, yearsAgo):
         for row in csv_reader:
             coordinates = [float(row["LATITUDE"]),float(row["LONGITUDE"])]
             year = int(row["YEAR"])
-            distance = R*cmath.acos(cmath.sin(coordinatesPoint[0])*cmath.sin(coordinates[0]) + cmath.cos(coordinatesPoint[0])*cmath.cos(coordinates[0])*cmath.cos(coordinatesPoint[1]-cmath.cos(coordinates[1])))
+
+            latA = (coordinatesPoint[0]*cmath.pi)/180
+            lonA = (coordinatesPoint[1]*cmath.pi)/180
+
+            latB = (coordinates[0]*cmath.pi)/180
+            lonB = (coordinates[1]*cmath.pi)/180
+
+            distance = R*cmath.acos(cmath.sin(latA)*cmath.sin(latB) + cmath.cos(latA)*cmath.cos(latB)*cmath.cos(lonA-cmath.cos(lonB)))
         
             if float(distance.real) <=distanceMax and now.year - year < yearsAgo:
                 validRows.append(row)

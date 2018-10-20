@@ -1,6 +1,7 @@
 import openweather
 import datetime
 import requests
+import time
 #import pyowm
 
 #owm = pyowm.OWM("1de8930ec5d19e8b86bf6561b6f9bb74")
@@ -27,18 +28,49 @@ def weather(coordinates=[31.90,36.58], date = datetime.datetime.now(), allMonth 
     if not allMonth:
         URL = "https://www.metaweather.com/api/location/" + str(idCity) + "/" + str(date.year) + "/" +  str(date.month) +"/" + str(date.day) + "/"
         r = requests.get(url = URL) 
-        data = r.json()[0]
-    else:
-        maxDays = calendar.monthrange(date.year, date.month)
-        for d in range(1, maxDays):
+        try:
+            data = r.json()[0]
+            min_temp = data["min_temp"]
+            max_temp = data["max_temp"]
+            weather_name = data["weather_state_name"]
+        except:
+            min_temp = None
+            max_temp = None
+            weather_name = None
             
+        return [climate, weather_name, min_temp, max_temp]
+        
+    else:
+        maxDays = calendar.monthrange(date.year, date.month)[1]
+        min_temp = 0
+        max_temp = 0
+        areNone = 0
+
+        for d in range(1, maxDays+1):
+            URL = "https://www.metaweather.com/api/location/" + str(idCity) + "/" + str(date.year) + "/" +  str(date.month) +"/" + str(d) + "/"
+            r = requests.get(url = URL)
+            try:
+                data = r.json()[0]
+                min_temp += data["min_temp"]
+                max_temp += data["max_temp"]
+            except:
+                areNone += 1
+
+            time.sleep(0.25)
+
+        if areNone<maxDays:
+            min_temp /= (maxDays-areNone)
+            max_temp /= (maxDays-areNone)
+        else:
+            min_temp = None
+            max_temp = None
     
-    min_temp = data["min_temp"]
-    max_temp = data["max_temp"]
-    weather_name = data["weather_state_name"]
+        return [climate, min_temp, max_temp]
 
-    return [climate, weather_name, min_temp, max_temp]
+#date = datetime.datetime(2019,2,1)
 
-weather()
+#w = weather(date=date,allMonth=True)
+
+#print(w)
 
 

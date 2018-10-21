@@ -17,7 +17,6 @@ def searchSettlementByPosition():
             ]
         answer = inquirer.prompt(questions)
         requestedLocation = [answer.get('lat'), answer.get('lon')]
-        pprint(requestedLocation)
 
         closeBySettlements = []
         for settlement in listOfSettlements:
@@ -27,7 +26,6 @@ def searchSettlementByPosition():
 
 # TODO names
 def settlementChoice(choices):
-
     questions = [
         inquirer.List('settlement',
                                 message = 'Pick a settlement',
@@ -38,6 +36,7 @@ def settlementChoice(choices):
 
 
     def singleSettlementChoice(settlement):
+
         choices = getListOfLayers()
         questions   = [
         inquirer.Confirm('DownloadLayer0', message = 'Do you want to download the settlement satellite map?', default = True),
@@ -55,6 +54,15 @@ def settlementChoice(choices):
         if(answers.size > 0):
             for answer in answers():
                 download(answer)
+        else:
+            questions = [
+                inquirer.List('nochoice', message = 'You haven\'t  picked any layer, do you want to retry or go back to the main menu?', choices = ['Retry', 'Main Menu']),
+            ]
+            answer = inquirer.prompt(questions)
+            if answer.get('nochoice') == 'Retry':
+                singleSettlementChoice(settlement)
+            elif answer.get('choice') == 'Main Menu':
+                mainMenu()
 
             def settlementInfo():
                 notImplemente

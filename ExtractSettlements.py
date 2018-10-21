@@ -55,6 +55,13 @@ def getSettlementsByName(name):
         for row in csv_reader:
             if row["NAME"] == name:
                 return row
+                
+def getCoordinatesByName(name):
+    # Just take the first one, no reason for duplicates
+    row = getSettlementsByName(name)
+    return  [float(row["LAT"]),float(row["LONG"])]
+
+
 
 def getSettlementsByPcode(Pcode):
     with open(pathFile) as csv_file:

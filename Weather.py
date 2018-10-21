@@ -14,7 +14,7 @@ import requests
 import datetime
 import calendar
 
-def weather(coordinates=[31.90,36.58], date = datetime.datetime.now(), allMonth = False):
+def weather(coordinates, date = datetime.datetime.now(), allMonth = False):
     URL = "http://climateapi.scottpinkelman.com/api/v1/location/"+ str(coordinates[0]) + "/" + str(coordinates[1])
     r = requests.get(url = URL)
     data = r.json()

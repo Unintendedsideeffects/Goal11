@@ -4,10 +4,23 @@ import re
 sys.path.append(os.path.realpath('.'))
 from pprint import pprint
 from distance import distance
+import dir
+from accessoryData import getListOfLayers
 import inquirer
-
+import 
 
 # TODO conflicts
+
+def mainMenu():
+    questions = [
+        inquirer.List('mainMenu', message='Welcome to Goal 11', choices= ['Search Settlement', 'Exit']),
+    ]
+    answer = inquirer.prompt(questions)
+
+    if answer.get('mainMenu') == 'Search Settlement' :
+        searchSettlementByPosition()
+    elif answer.get('mainMenu') == 'Exit':
+        exit()
 
 
 def searchSettlementByPosition():
@@ -41,6 +54,7 @@ def settlementChoice(choices):
         questions   = [
         inquirer.Confirm('DownloadLayer0', message = 'Do you want to download the settlement satellite map?', default = True),
         ]
+        answer = inquirer.prompt(questions)
 
         if(answer):
             downloadImage('SettlementName', coordinates, date)
@@ -51,9 +65,9 @@ def settlementChoice(choices):
         ]
         # pprint(requestedLocation)
         answers = inquirer.prompt(questions)
-        if(answers.size > 0):
+        if(answers[''] > 0):
             for answer in answers():
-                download(answer)
+                downloadImage(answer)
         else:
             questions = [
                 inquirer.List('nochoice', message = 'You haven\'t  picked any layer, do you want to retry or go back to the main menu?', choices = ['Retry', 'Main Menu']),
@@ -65,7 +79,7 @@ def settlementChoice(choices):
                 mainMenu()
 
             def settlementInfo():
-                notImplemente
+
                 numberOfConflicts(path, coordinates, number)
                 # numberOfConflicts(path, coordinates, numberofYears)
 searchSettlementByPosition()

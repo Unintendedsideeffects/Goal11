@@ -35,4 +35,4 @@ def downloadImage(name,  coord, type = 0, date = "latest", width = 1920):
     return path
 
 #test
-downloadImage("NOME_SETTLEMENT",coord = [31.9, 36.58])
+#downloadImage("NOME_SETTLEMENT",coord = [31.9, 36.58])

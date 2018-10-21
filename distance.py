@@ -17,3 +17,5 @@ def distance(firstPoint, secondPoint, distanceMax = None):
              return (distance <= distanceMax)
             elif distanceMax == 'Default':
              return (distance <= 50)
+
+             return distance

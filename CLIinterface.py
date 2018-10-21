@@ -47,7 +47,18 @@ def settlementChoice(choices):
     answer = inquirer.prompt(questions)
     singleSettlementChoice(answer.get('settlement'))
 
+    def pickdate():
+        questions = [
+            inquirer.Text('year', message= 'pick the year')
+            inquirer.Text('month', message = 'pick the month')
+            inquirer.Text('day', message = 'pick the day')
 
+            answers = inquirer.prompt(questions)
+
+            date = {}{}{}{}{}.format(answers.get('year'), "-", answers.get('month'), '-', answers.get('day')
+
+            return date
+        ]
     def singleSettlementChoice(settlement):
 
         choices = getListOfLayers()
@@ -57,7 +68,7 @@ def settlementChoice(choices):
         answer = inquirer.prompt(questions)
 
         if(answer):
-            downloadImage('SettlementName', coordinates, date)
+            downloadImage('SettlementName', coordinates)
             # type = 0 is an Int
 
         questions = [

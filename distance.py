@@ -18,4 +18,4 @@ def distance(firstPoint, secondPoint, distanceMax = None):
             elif distanceMax == 'Default':
              return (distance <= 50)
 
-             return distance
+            return distance

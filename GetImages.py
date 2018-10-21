@@ -9,9 +9,11 @@ INSTANCE_ID = "301131b2-14c0-4797-b938-9b48914ae592"
 IMAGE_TYPE = ["TRUE-COLOR-S2-L1C", "NDWI", "NDVI"]
 PATH_TYPE = ["Main", "Water", "Vegetation"]
 
-def downloadImage(name,  coords, type = 0, date = "latest", width = 1920):
+def downloadImage(name,  coord, type = 0, date = "latest", width = 1920):
 
     #TODO get coord by name
+
+    coords = [coord[1]-0.053,coord[0]+0.03,coord[1]+0.053,coord[0]-0.03]
 
     bbox = BBox(bbox=coords, crs=CRS.WGS84)
 
@@ -33,4 +35,4 @@ def downloadImage(name,  coords, type = 0, date = "latest", width = 1920):
     return path
 
 #test
-downloadImage("NOME_SETTLEMENT",coords = [36.541, 31.917, 36.613, 31.887])
+downloadImage("NOME_SETTLEMENT",coord = [31.9, 36.58])

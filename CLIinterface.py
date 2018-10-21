@@ -2,7 +2,7 @@ import os
 import re
 import sys
 from pprint import pprint
-
+import datetime
 import inquirer
 
 from accessoryData import getListOfLayers
@@ -22,15 +22,33 @@ def clear():
 
 def mainMenu():
     questions = [
-        inquirer.List('mainMenu', message='Welcome to Goal 11', choices= ['Search Settlement', 'Exit']),
+        inquirer.List('mainMenu', message='Welcome to Goal 11', choices= ['Search Settlement By Name', 'Search Settlement By Location', 'Exit']),
     ]
     answer = inquirer.prompt(questions)
 
-    if answer.get('mainMenu') == 'Search Settlement' :
+    if answer.get('mainMenu') == 'Search Settlement By Name' :
+        searchSettlementByName()
+    elif answer.get('mainMenu') == 'Search Settlement By Location':
         searchSettlementByPosition()
     elif answer.get('mainMenu') == 'Exit':
         exit()
 
+def searchSettlementByName():
+    questions = [
+        inquirer.Text('Name', message = 'Search for a Settlement:'),
+            ]
+    answer = inquirer.prompt(questions)
+    try:
+        requestedLocation = getCoordinatesByName(answer.get('Name'))
+    except:
+        print('No settlement with that name')
+        mainMenu()
+    closeBySettlements = extractSettlementsNames(requestedLocation, 10)
+    if len(closeBySettlements) <= 0:
+        print('No settlements in the area nearby')
+        clear()
+        mainMenu()
+    settlementChoice(closeBySettlements)
 
 def searchSettlementByPosition():
         questions = [
@@ -42,7 +60,6 @@ def searchSettlementByPosition():
         closeBySettlements = extractSettlementsNames(requestedLocation, 10)
         if len(closeBySettlements) <= 0:
             print('No settlements in the area nearby')
-            clear()
             mainMenu()
         settlementChoice(closeBySettlements)
 
@@ -56,6 +73,18 @@ def settlementChoice(choices):
     singleSettlementChoice(answer.get('settlement'))
 
 def singleSettlementChoice(settlementName):
+    questions = [
+        inquirer.List('single', choices=['Layers', 'Info Settlement', 'Main Menu', 'Exit'])
+    ]
+    answer = inquirer.prompt('single')
+    if answer.get('single') == 'Exit':
+        clear()
+        exit()
+    elif answer.get('single') == 'Info Settlement':
+        settlementInfo(settlementName)
+    elif answer.get('single') == 'Main Menu':
+        clear()
+        mainMenu()
         settlement = getSettlementsByName(settlementName)
         settlementcoordinates = [float(settlement["LAT"]),float(settlement["LONG"])]
         choices = getListOfLayers()
@@ -87,7 +116,6 @@ def singleSettlementChoice(settlementName):
             elif answer.get('choice') == 'Main Menu':
                 mainMenu()
 
-# TODO names
 
 def pickdate():
     questions =  [
@@ -97,9 +125,14 @@ def pickdate():
     ]
     answers = inquirer.prompt(questions)
 
-    date = ("{}{}{}{}{}".format(answers.get('year'), "-", answers.get('month'), '-', answers.get('day')))
+    isValidDate = True
+    try :
+       date=datetime.datetime(int(answers.get('year')), int(answers.get('month')), int((answers.get('day'))))
+    except ValueError :
+        isValidDate = False
+    if(isValidDate) :
+        return date
 
-    return date
 def displayConflicts(settlementChoice):
         clear()
         print('List of  Recents Conflicts')
@@ -165,7 +198,8 @@ def weatherMenu(settlementName):
             coordinates = getCoordinatesByName(settlementName)
             todayWeatherdisplay(coordinates)
         elif answer.get('weatherMenu') == 'Historical Data':
-            NotImplemented
+            clear()
+            mainMenu()
         elif answer.get('weatherMenu') == 'Main Menu':
             mainMenu()
         elif answer.get('weatherMenu') == 'Exit':

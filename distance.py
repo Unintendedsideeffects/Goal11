@@ -10,7 +10,7 @@ def distance(firstPoint, secondPoint, distanceMax = None):
             latB = (secondPoint[0]*cmath.pi)/180
             lonB = (secondPoint[1]*cmath.pi)/180
 
-            distance = R*cmath.acos(cmath.sin(latA)*cmath.sin(latB) + cmath.cos(latA)*cmath.cos(latB)*cmath.cos(lonA-cmath.cos(lonB)))
+            distance = R*cmath.acos(cmath.sin(latA)*cmath.sin(latB) + cmath.cos(latA)*cmath.cos(latB)*cmath.cos(lonA-lonB))
             distance = float(distance.real)
            
             if distanceMax != None:

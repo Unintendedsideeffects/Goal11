@@ -58,10 +58,9 @@ def getSettlementsByPcode(Pcode):
             if row["ï»¿PCode"] == Pcode:
                 return row
 
-
-
-#rows = extractSettlements("Settlements.csv", [-4.764447,13.614718],50)
-#print(rows)
+#rows = extractSettlements([-4.764447,13.614718],150)
+#for row in rows:
+#    print(row["NAME"])
 
 #getSettlementsByName("Madimba")
 #getSettlementsByPcode("CG010100015")

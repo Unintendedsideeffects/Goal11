@@ -1,15 +1,20 @@
 import os
-import sys
 import re
-sys.path.append(os.path.realpath('.'))
+import sys
 from pprint import pprint
-from distance import distance
-from accessoryData import getListOfLayers
+
 import inquirer
+
+from accessoryData import getListOfLayers
+from convert import *
+from distance import distance
+from ExtractConflicts import *
 from ExtractSettlements import *
 from GetImages import *
-from convert import *
 from Weather import weather
+
+sys.path.append(os.path.realpath('.'))
+
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -95,8 +100,27 @@ def pickdate():
     date = ("{}{}{}{}{}".format(answers.get('year'), "-", answers.get('month'), '-', answers.get('day')))
 
     return date
-
-    
+def displayConflicts(settlementChoice):
+        clear()
+        print('List of  Recents Conflicts')
+        print(' ')
+        for event in extract(getCoordinatesByName(settlementChoice)):
+            print('{}{}{}{}'.format(event['EVENT_TYPE'], ' ', 'Fatalities: ',  event['FATALITY']))
+        
+def conflictsMenu(settlementName):
+        print('{}{}'.format('Number of Conflicts in the zone:', numberConflicts(getSettlementsByName(settlementName))))
+        questions = [
+            inquirer.List('conflictsMenu', choices=['List Recent Conflicts', ' Go Back To The Settlement', 'Exit'])
+        ]
+        answer = inquirer.prompt(questions)
+        if(answer.get('conflictsMenu') == 'List Recent Conflicts'):
+                    displayConflicts(settlementChoice)
+        elif(answer.get('conflictsMenu') == 'Go Back To The Settlement'):
+            singleSettlementChoice(settlementName)
+        elif(answer.get('conflictsMenu') == 'Exit'):
+            clear()
+            exit()
+        
 
 def settlementInfo(settlementName):
         # Weather

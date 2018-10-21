@@ -1,5 +1,5 @@
 import cmath
-
+import dir
 def layerNumberFromName(name):
         layers = getListOfLayers()
         return layers.index(name)

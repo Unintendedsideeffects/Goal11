@@ -3,7 +3,7 @@ import sys
 import re
 sys.path.append(os.path.realpath('.'))
 from pprint import pprint
-
+import dir
 import inquirer
 
 

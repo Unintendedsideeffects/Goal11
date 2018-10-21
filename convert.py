@@ -1,11 +1,13 @@
 import cmath
 import dir
+from accessoryData import getListOfLayers
+
 def layerNumberFromName(name):
         layers = getListOfLayers()
         return layers.index(name)
 def layerNameFromIndex(index):
         layers = getListOfLayers()
-        return layers.get(index)
+        return layers[index]
 
 def convertDecimalToRadians(coordinates):
     radianCoordinates = []

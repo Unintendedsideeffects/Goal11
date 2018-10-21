@@ -49,7 +49,7 @@ def settlementChoice(choices):
         questions = [
         inquirer.Checkbox('layers', message = 'Pick the layers you want to download', choices = choices),
         ]
-        pprint(requestedLocation)
+        # pprint(requestedLocation)
         answers = inquirer.prompt(questions)
         if(answers.size > 0):
             for answer in answers():

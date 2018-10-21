@@ -1,5 +1,4 @@
 import cmath
-import dir
 from accessoryData import getListOfLayers
 
 def layerNumberFromName(name):

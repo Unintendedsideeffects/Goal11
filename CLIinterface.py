@@ -4,7 +4,6 @@ import re
 sys.path.append(os.path.realpath('.'))
 from pprint import pprint
 from distance import distance
-import dir
 from accessoryData import getListOfLayers
 import inquirer
 from ExtractSettlements import *
@@ -32,6 +31,9 @@ def searchSettlementByPosition():
         answer = inquirer.prompt(questions)
         requestedLocation = [answer.get('lat'), answer.get('lon')]
         closeBySettlements = extractSettlements(requestedLocation, 30)
+        closeBySettlementsNames = []
+        for settlement in closeBySettlements['NAME']:
+            closeBySettlementsNames.append(settlement['NAME'])
         settlementChoice(closeBySettlements)
 
 # TODO names
@@ -87,7 +89,6 @@ def settlementChoice(choices):
                 mainMenu()
 
             def settlementInfo():
+                NotImplemented
 
-                numberOfConflicts(path, coordinates, number)
-                # numberOfConflicts(path, coordinates, numberofYears)
-searchSettlementByPosition()
+mainMenu()

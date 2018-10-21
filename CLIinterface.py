@@ -39,7 +39,7 @@ def settlementChoice():
     answer = inquirer.prompt(questions)
 
     def singleSettlementChoice(settlement):
-        listofLayers = ['Main', 'Water', 'Vegetation']
+        choices = getListOfLayers()
         questions   = [
         inquirer.Confirm('DownloadLayer0', message = 'Do you want to download the settlement satellite map?', default = True),
         ]

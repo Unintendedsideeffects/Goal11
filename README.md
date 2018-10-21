@@ -23,18 +23,30 @@ We think this tool is already able to display data in a very creative way having
 
 The way we developed the idea and modularized its structure leaves open huge possibilities for further development and even third-party integration. We specifically created the app with analytical capabilities that could one day help policy makers make informed decisions about settlement energy management and bettering the lives of people that are currently living in dire conditions. These are the people we had in mind from the beginning, we choose this challenge because even though current events created a crysis of epic proportions sensibilizations is still lacking.   
 
+![UI](/Images/UI.png)
+
 ​PRESENTATION
 
 ​Goal_11
 
+
 ​​​Resources
 
 https://data.humdata.org/ - Data of settlements
+
 https://www.acleddata.com/data/ - Conflict data for Jordan
+
 https://data2.unhcr.org/en/situations/syria - Situation Syria Regional Refugee Response
+
 https://www.metaweather.com/api/ - Weather History
+
 http://climateapi.scottpinkelman.com/  - Climate
+
 Contains modified Copernicus Sentinel data 2018 processed by Sentinel Hub
+
 Inquirer: Copyright (c) 2016 Simon Boudrias, Licensed under the MIT license.
+
 Sentinel-hub-py: Copyright (c) 2018 Sentinel Hub, Licensed under the MIT license.
+
+And a special thank you to Politecnico di Milano and Nasa for the opportunity.
 

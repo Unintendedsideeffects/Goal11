@@ -15,27 +15,27 @@ def searchSettlementByPosition():
             inquirer.Text('lat', message = 'Input the latitude'),
             inquirer.Text('lon', message = 'Input the longitude'),
             ]
-            # TODO add validator
-
         answer = inquirer.prompt(questions)
-
         requestedLocation = [answer.get('lat'), answer.get('lon')]
         pprint(requestedLocation)
+
         closeBySettlements = []
         for settlement in listOfSettlements:
             if distance(requestedLocation, settlement.location, distanceMax):
                 closeBySettlements.append(settlement)
+        settlementChoice(closeBySettlements)
 
 # TODO names
-def settlementChoice():
+def settlementChoice(choices):
 
     questions = [
-        inquirer.List('settlements',
+        inquirer.List('settlement',
                                 message = 'Pick a settlement',
-                                choices = closeBySettlements()),
+                                choices = choices),
                                 ]
-
     answer = inquirer.prompt(questions)
+    singleSettlementChoice(answer.get('settlement'))
+
 
     def singleSettlementChoice(settlement):
         choices = getListOfLayers()
@@ -50,13 +50,14 @@ def settlementChoice():
         questions = [
         inquirer.Checkbox('layers', message = 'Pick the layers you want to download', choices = choices),
         ]
-
+        pprint(requestedLocation)
         answers = inquirer.prompt(questions)
         if(answers.size > 0):
             for answer in answers():
                 download(answer)
 
             def settlementInfo():
-                notImplemented
+                notImplemente
+                numberOfConflicts(path, coordinates, number)
                 # numberOfConflicts(path, coordinates, numberofYears)
 searchSettlementByPosition()

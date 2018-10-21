@@ -102,10 +102,13 @@ def settlementInfo(settlementName):
         # Weather
         # Conflicts
         questions = [
-            inquirer.List('SettlementInfo', choices = ['Weather', 'Conf'] )
+            inquirer.List('SettlementInfo', choices = ['Weather', 'Conflicts'] )
         ]
         answer = inquirer.prompt(questions)
-        weatherMenu(settlementName)
+        if answer.get('SettlementInfo') == 'Weather':
+            weatherMenu(settlementName)
+        elif answer.get('SettlementInfo') == 'Conflicts':
+            conflictsMenu(settlementName)
 
 def todayWeatherdisplay(coordinates):
     weatherChannel = weather(coordinates)

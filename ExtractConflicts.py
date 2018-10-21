@@ -6,8 +6,12 @@ import distance
 
 pathFile = "ConflictData.csv"
 
-def extract(coordinatesPoint, distanceMax, yearsAgo):
-        
+def extract(coordinatesPoint, distanceMax = 'default', yearsAgo = 'default'):
+       
+    if distanceMax == 'default':
+        distanceMax = 50
+    if yearsAgo == 'default':
+        yearsAgo = 25
     with open(pathFile) as csv_file:
 
         csv_reader = csv.DictReader(csv_file, delimiter = ",")
@@ -25,7 +29,7 @@ def extract(coordinatesPoint, distanceMax, yearsAgo):
 
     return validRows
 
-def numberConflicts(coordinatesPoint, distanceMax, yearsAgo):
+def numberConflicts(coordinatesPoint, distanceMax = 'Default', yearsAgo = 'Default'):
     return len(extract(coordinatesPoint, distanceMax, yearsAgo))
 
 # print ("START")

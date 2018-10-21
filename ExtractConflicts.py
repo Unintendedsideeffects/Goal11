@@ -24,14 +24,11 @@ def Extract(pathFile, coordinatesPoint, distanceMax, yearsAgo):
             lonB = (coordinates[1]*cmath.pi)/180
 
             distance = R*cmath.acos(cmath.sin(latA)*cmath.sin(latB) + cmath.cos(latA)*cmath.cos(latB)*cmath.cos(lonA-cmath.cos(lonB)))
-        
+
             if float(distance.real) <=distanceMax and now.year - year < yearsAgo:
                 validRows.append(row)
 
     return validRows
-
-def numberConflicts(pathFile, coordinatesPoint, distanceMax, yearsAgo):
-    len(Extract(pathFile, coordinatesPoint, distanceMax, yearsAgo))
 
 # print ("START")
 # events=Extract(pathFile = "ConflictData.csv",coordinatesPoint = [32.1736,36.1940],distanceMax=100,yearsAgo=10)

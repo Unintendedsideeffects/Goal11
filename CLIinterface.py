@@ -13,15 +13,14 @@ import inquirer
 def searchSettlementByPosition():
         questions = [
             inquirer.Text('lat', message = 'Input the latitude'),
-            inquirer.Text('lon', message = 'Input the longitude')
+            inquirer.Text('lon', message = 'Input the longitude'),
             ]
             # TODO add validator
 
-        answers = inquirer.prompt(questions)
-        pprint(answers)
+        answer = inquirer.prompt(questions)
 
-        requestedLocation = [answer['lat'], answer['lon']]
-
+        requestedLocation = [answer.get('lat'), answer.get('lon')]
+        pprint(requestedLocation)
         closeBySettlements = []
         for settlement in listOfSettlements:
             if distance(requestedLocation, settlement.location, distanceMax):
@@ -33,7 +32,7 @@ def settlementChoice():
     questions = [
         inquirer.List('settlements',
                                 message = 'Pick a settlement',
-                                choices = closeBySettlements),
+                                choices = closeBySettlements()),
                                 ]
 
     answer = inquirer.prompt(questions)
@@ -45,16 +44,19 @@ def settlementChoice():
         ]
 
         if(answer):
-            downloadImage('SettlementName', coordinates, type = 0, date)
+            downloadImage('SettlementName', coordinates, date)
+            # type = 0 is an Int
 
         questions = [
-        inquirer.Checkbox('layers', message = 'Pick the layers you want to download', choices = listofLayers),
+        inquirer.Checkbox('layers', message = 'Pick the layers you want to download', choices = choices),
         ]
 
         answers = inquirer.prompt(questions)
         if(answers.size > 0):
-            download(answers)
+            for answer in answers():
+                download(answer)
 
             def settlementInfo():
+                notImplemented
                 # numberOfConflicts(path, coordinates, numberofYears)
 searchSettlementByPosition()

@@ -21,7 +21,7 @@ def searchSettlementByPosition():
         pprint(answers)
 
         requestedLocation = [answer['lat'], answer['lon']]
-        
+
         closeBySettlements = []
         for settlement in listOfSettlements:
             if distance(requestedLocation, settlement.location, distanceMax):
@@ -39,22 +39,22 @@ def settlementChoice():
     answer = inquirer.prompt(questions)
 
     def singleSettlementChoice(settlement):
-        # TODO listoflayers
+        choices = getListOfLayers()
         questions   = [
         inquirer.Confirm('DownloadLayer0', message = 'Do you want to download the settlement satellite map?', default = True),
         ]
 
         if(answer):
-            notImplemented
-            # dowload layer 0
+            downloadImage('SettlementName', coordinates, type = 0, date)
 
         questions = [
-        inquirer.Checkbox('layers', message = 'Pick the layers you want to download', choices = listoflayers),
+        inquirer.Checkbox('layers', message = 'Pick the layers you want to download', choices = listofLayers),
         ]
 
         answers = inquirer.prompt(questions)
         if(answers.size > 0):
             download(answers)
 
-
+            def settlementInfo():
+                # numberOfConflicts(path, coordinates, numberofYears)
 searchSettlementByPosition()

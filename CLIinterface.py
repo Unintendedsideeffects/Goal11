@@ -123,17 +123,18 @@ def conflictsMenu(settlementName):
         
 
 def settlementInfo(settlementName):
-        # Weather
-        # Conflicts
         questions = [
-            inquirer.List('SettlementInfo', choices = ['Weather', 'Conflicts'] )
+            inquirer.List('SettlementInfo', choices = ['Weather', 'Conflicts',  'Exit'] )
         ]
         answer = inquirer.prompt(questions)
         if answer.get('SettlementInfo') == 'Weather':
             weatherMenu(settlementName)
         elif answer.get('SettlementInfo') == 'Conflicts':
             conflictsMenu(settlementName)
-
+        elif answer.get('SettlementInfo') == 'Exit':
+            clear()
+            exit() 
+         
 def todayWeatherdisplay(coordinates):
     weatherChannel = weather(coordinates)
     print('{}{}'.format("The weather today is: ", weatherChannel[0]))

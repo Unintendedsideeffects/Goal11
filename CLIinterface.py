@@ -7,8 +7,9 @@ from distance import distance
 import dir
 from accessoryData import getListOfLayers
 import inquirer
-import 
-
+from ExtractSettlements import *
+from GetImages import *
+from convert import *
 # TODO conflicts
 
 def mainMenu():
@@ -30,11 +31,7 @@ def searchSettlementByPosition():
             ]
         answer = inquirer.prompt(questions)
         requestedLocation = [answer.get('lat'), answer.get('lon')]
-
-        closeBySettlements = []
-        for settlement in listOfSettlements:
-            if distance(requestedLocation, settlement.location, distanceMax = 'default'):
-                closeBySettlements.append(settlement)
+        closeBySettlements = extractSettlements(requestedLocation, 30)
         settlementChoice(closeBySettlements)
 
 # TODO names
@@ -48,27 +45,28 @@ def settlementChoice(choices):
     singleSettlementChoice(answer.get('settlement'))
 
     def pickdate():
-        questions = [
-            inquirer.Text('year', message= 'pick the year')
-            inquirer.Text('month', message = 'pick the month')
+        questions =  [
+            inquirer.Text('year', message= 'pick the year'),
+            inquirer.Text('month', message = 'pick the month'),
             inquirer.Text('day', message = 'pick the day')
-
-            answers = inquirer.prompt(questions)
-
-            date = {}{}{}{}{}.format(answers.get('year'), "-", answers.get('month'), '-', answers.get('day')
-
-            return date
         ]
-    def singleSettlementChoice(settlement):
+        answers = inquirer.prompt(questions)
 
+        date = ("{}{}{}{}{}".format(answers.get('year'), "-", answers.get('month'), '-', answers.get('day')))
+
+        return date
+
+    def singleSettlementChoice(settlementName):
+        settlement = getSettlementsByName(settlementName)
+        settlementcoordinates = [float(settlement["LAT"]),float(settlement["LONG"])]
         choices = getListOfLayers()
         questions   = [
         inquirer.Confirm('DownloadLayer0', message = 'Do you want to download the settlement satellite map?', default = True),
         ]
         answer = inquirer.prompt(questions)
 
-        if(answer):
-            downloadImage('SettlementName', coordinates)
+        if(answer.get('DownloadLayer0')):
+            downloadImage(settlementName, settlementcoordinates)
             # type = 0 is an Int
 
         questions = [
@@ -76,9 +74,8 @@ def settlementChoice(choices):
         ]
         # pprint(requestedLocation)
         answers = inquirer.prompt(questions)
-        if(answers[''] > 0):
-            for answer in answers():
-                downloadImage(answer)
+        if answers.get('layers') is not None:
+            downloadImage(settlementName, settlementcoordinates,  layerNumberFromName(answer.get('layers')))
         else:
             questions = [
                 inquirer.List('nochoice', message = 'You haven\'t  picked any layer, do you want to retry or go back to the main menu?', choices = ['Retry', 'Main Menu']),

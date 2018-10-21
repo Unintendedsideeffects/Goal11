@@ -1,11 +1,10 @@
 import cmath
 
-
 def layerNumberFromName(name):
-        layers= ['Main', 'Water', 'Vegetation']
+        layers = getListOfLayers()
         return layers.index(name)
 def layerNameFromIndex(index):
-        layers = ['Main', 'Water', 'Vegetation']
+        layers = getListOfLayers()
         return layers.get(index)
 
 def convertDecimalToRadians(coordinates):

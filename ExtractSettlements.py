@@ -18,6 +18,13 @@ def extractSettlements (coordinatesPoint, radius):
 
     return validRows
 
+def extractSettlementsNames(coordinatesPoint, radius):
+    names = []
+    rows = extractSettlements(coordinatesPoint, radius)
+    for row in rows:
+        names.append(row['NAME'])
+    return names
+
 def getNearest(coordinatesPoint):
     nearest = None
     minDist = -1

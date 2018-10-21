@@ -30,13 +30,16 @@ def searchSettlementByPosition():
             ]
         answer = inquirer.prompt(questions)
         requestedLocation = [answer.get('lat'), answer.get('lon')]
-        closeBySettlements = extractSettlements(requestedLocation, 30)
-        closeBySettlementsNames = []
-        for settlement in closeBySettlements['NAME']:
-            closeBySettlementsNames.append(settlement['NAME'])
+        closeBySettlements = extractSettlementsNames(requestedLocation, 10)
+        # closeBySettlements = extractSettlements(requestedLocation, 300)
+        # closeBySettlementsNames = []
+        # for i in range(0, len(closeBySettlements)):
+        #     closeBySettlementsNames.append(closeBySettlements[i]['NAME'])
+        if len(closeBySettlements) <= 0:
+            print('No settlements in the area nearby')
+            mainMenu()
         settlementChoice(closeBySettlements)
 
-# TODO names
 def settlementChoice(choices):
     questions = [
         inquirer.List('settlement',
@@ -46,19 +49,7 @@ def settlementChoice(choices):
     answer = inquirer.prompt(questions)
     singleSettlementChoice(answer.get('settlement'))
 
-    def pickdate():
-        questions =  [
-            inquirer.Text('year', message= 'pick the year'),
-            inquirer.Text('month', message = 'pick the month'),
-            inquirer.Text('day', message = 'pick the day')
-        ]
-        answers = inquirer.prompt(questions)
-
-        date = ("{}{}{}{}{}".format(answers.get('year'), "-", answers.get('month'), '-', answers.get('day')))
-
-        return date
-
-    def singleSettlementChoice(settlementName):
+def singleSettlementChoice(settlementName):
         settlement = getSettlementsByName(settlementName)
         settlementcoordinates = [float(settlement["LAT"]),float(settlement["LONG"])]
         choices = getListOfLayers()
@@ -77,7 +68,8 @@ def settlementChoice(choices):
         # pprint(requestedLocation)
         answers = inquirer.prompt(questions)
         if answers.get('layers') is not None:
-            downloadImage(settlementName, settlementcoordinates,  layerNumberFromName(answer.get('layers')))
+            for answer in answers.get('layers'):
+                downloadImage(settlementName, settlementcoordinates, layerNumberFromName(answer))
         else:
             questions = [
                 inquirer.List('nochoice', message = 'You haven\'t  picked any layer, do you want to retry or go back to the main menu?', choices = ['Retry', 'Main Menu']),
@@ -88,7 +80,23 @@ def settlementChoice(choices):
             elif answer.get('choice') == 'Main Menu':
                 mainMenu()
 
-            def settlementInfo():
-                NotImplemented
+# TODO names
+
+def pickdate():
+    questions =  [
+        inquirer.Text('year', message= 'pick the year'),
+        inquirer.Text('month', message = 'pick the month'),
+        inquirer.Text('day', message = 'pick the day')
+    ]
+    answers = inquirer.prompt(questions)
+
+    date = ("{}{}{}{}{}".format(answers.get('year'), "-", answers.get('month'), '-', answers.get('day')))
+
+    return date
+
+    
+
+def settlementInfo():
+     NotImplemented
 
 mainMenu()

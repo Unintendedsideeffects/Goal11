@@ -3,7 +3,7 @@ import sys
 import re
 sys.path.append(os.path.realpath('.'))
 from pprint import pprint
-import dir
+from distance import distance
 import inquirer
 
 
@@ -20,7 +20,7 @@ def searchSettlementByPosition():
 
         closeBySettlements = []
         for settlement in listOfSettlements:
-            if distance(requestedLocation, settlement.location, distanceMax):
+            if distance(requestedLocation, settlement.location, distanceMax = 'default'):
                 closeBySettlements.append(settlement)
         settlementChoice(closeBySettlements)
 

@@ -12,6 +12,8 @@ def distance(firstPoint, secondPoint, distanceMax = None):
 
             distance = R*cmath.acos(cmath.sin(latA)*cmath.sin(latB) + cmath.cos(latA)*cmath.cos(latB)*cmath.cos(lonA-cmath.cos(lonB)))
             distance = float(distance.real)
-            return distance
-            # if distanceMax != None:
-            #     return (distance <= distanceMax)
+           
+             if distanceMax != None:
+                 return (distance <= distanceMax)
+            elif distanceMax == 'Default':
+                 return (distance <= 50)

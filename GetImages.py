@@ -36,3 +36,18 @@ def downloadImage(name,  coord, type = 0, date = "latest", width = 1920):
 
 #test
 #downloadImage("NOME_SETTLEMENT",coord = [31.9, 36.58])
+
+coords = [92.13, 21.218, 92.172, 21.18]
+
+bbox = BBox(bbox=coords, crs=CRS.WGS84)
+
+true_color_request = WmsRequest(layer=IMAGE_TYPE[2],
+                                        bbox=bbox,
+                                        data_folder='test_dir/up2/NDVI',
+                                        time=("2012-01-01","2018-12-31"), 
+                                        width=1920,
+                                        maxcc=0.2,
+                                        instance_id=INSTANCE_ID)
+
+true_color_request.save_data()
+    
